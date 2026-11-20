@@ -41,7 +41,7 @@ jobs:
       - name: Marcar run como en curso
         run: node shared/send-to-supabase.js start
       - name: Ejecutar tests
-        run: ./run.sh
+        run: bash ./run.sh
         continue-on-error: true
       - name: Enviar resultados
         if: always()
