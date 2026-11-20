@@ -1,0 +1,51 @@
+name: run-tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "ID del run en Supabase"
+        required: true
+      suite:
+        description: "Slug de la suite (api)"
+        required: true
+      grep:
+        description: "Opcional: carpeta/test concreto"
+        required: false
+        default: ""
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RUN_ID: ${{ inputs.run_id }}
+      SUITE: ${{ inputs.suite }}
+      GREP: ${{ inputs.grep }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      STG_URL: ${{ secrets.STG_URL }}
+      STG_SECRET_KEY: ${{ secrets.STG_SECRET_KEY }}
+      QA_PASSWORD: ${{ secrets.QA_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Sahueson/ivan-qa-lab-shared
+          path: shared
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm ci --prefix shared
+      - name: Marcar run como en curso
+        run: node shared/send-to-supabase.js start
+      - name: Ejecutar tests
+        run: ./run.sh
+        continue-on-error: true
+      - name: Enviar resultados
+        if: always()
+        run: node shared/publish-results.js result.json
+      - name: Marcar run como fallido
+        if: failure() || cancelled()
+        run: node shared/send-to-supabase.js fail "El job de GitHub Actions falló o se canceló"

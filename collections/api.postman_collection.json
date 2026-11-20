@@ -1,0 +1,660 @@
+{
+  "info": {
+    "name": "Tactical Calendar API (staging)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-API01 Anónimo no ve partidas (RLS)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API01 Anónimo no ve partidas (RLS)\", () => {",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.be.an('array').that.is.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events?select=id"
+      }
+    },
+    {
+      "name": "TC-API02 Anónimo no ve inscripciones (RLS)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API02 Anónimo no ve inscripciones (RLS)\", () => {",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.be.an('array').that.is.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/event_registrations?select=id"
+      }
+    },
+    {
+      "name": "TC-API03 Anónimo no ve votaciones FOE (RLS)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API03 Anónimo no ve votaciones FOE (RLS)\", () => {",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.be.an('array').that.is.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/foe_polls?select=id"
+      }
+    },
+    {
+      "name": "TC-API04 Anónimo no ve faltas FOE (RLS)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API04 Anónimo no ve faltas FOE (RLS)\", () => {",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.be.an('array').that.is.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/foe_infractions?select=id"
+      }
+    },
+    {
+      "name": "TC-API05 Anónimo no lee perfiles",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API05 Anónimo no lee perfiles\", () => {",
+              "  pm.expect([401,403]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/profiles?select=id"
+      }
+    },
+    {
+      "name": "TC-API06 Anónimo no crea partidas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API06 Anónimo no crea partidas\", () => {",
+              "  pm.expect([401,403]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\":\"x\"}"
+        }
+      }
+    },
+    {
+      "name": "TC-API07 Anónimo no crea excedencias",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API07 Anónimo no crea excedencias\", () => {",
+              "  pm.expect([401,403]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/player_leaves",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"reason\":\"x\"}"
+        }
+      }
+    },
+    {
+      "name": "TC-API08 Anónimo no borra partidas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API08 Anónimo no borra partidas\", () => {",
+              "  pm.expect([401,403]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events?id=not.is.null"
+      }
+    },
+    {
+      "name": "TC-API09 El ping keep_alive responde",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API09 El ping keep_alive responde\", () => {",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.be.an('array').that.is.not.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/keep_alive?select=id&id=eq.1"
+      }
+    },
+    {
+      "name": "TC-API10 Sin apikey se rechaza",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API10 Sin apikey se rechaza\", () => {",
+              "  pm.expect([401]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events?select=id"
+      }
+    },
+    {
+      "name": "TC-API11 Login con contraseña incorrecta falla",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API11 Login con contraseña incorrecta falla\", () => {",
+              "  pm.expect([400]).to.include(pm.response.code);",
+              "  pm.expect(j.error_code).to.eql(\"invalid_credentials\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/auth/v1/token?grant_type=password",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"qa.player.mad@example.com\",\"password\":\"contraseña-incorrecta\"}"
+        }
+      }
+    },
+    {
+      "name": "TC-API12 Login correcto devuelve token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API12 Login correcto devuelve token\"); return; }",
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API12 Login correcto devuelve token\", () => {",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j.access_token).to.be.a('string').that.is.not.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          }
+        ],
+        "url": "{{base_url}}/auth/v1/token?grant_type=password",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"qa.player.mad@example.com\",\"password\":\"{{qa_password}}\"}"
+        }
+      }
+    },
+    {
+      "name": "TC-API13 Jugador MAD solo ve partidas de su equipo",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const emails = {\"superadmin\":\"qa.superadmin@example.com\",\"player_mad\":\"qa.player.mad@example.com\",\"player_foe\":\"qa.player.foe@example.com\",\"blocked\":\"qa.blocked@example.com\"};",
+              "pm.sendRequest({ url: pm.environment.get('base_url') + '/auth/v1/token?grant_type=password', method: 'POST',",
+              "  header: { apikey: pm.environment.get('anon_key'), 'Content-Type': 'application/json' },",
+              "  body: { mode: 'raw', raw: JSON.stringify({ email: emails['player_mad'], password: pm.environment.get('qa_password') }) } },",
+              "  (err, res) => { pm.variables.set('token', err || res.code !== 200 ? 'SIN_LOGIN' : res.json().access_token); });"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API13 Jugador MAD solo ve partidas de su equipo\"); return; }",
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API13 Jugador MAD solo ve partidas de su equipo\", () => {",
+              "  pm.expect(pm.variables.get('token'), 'login previo').to.not.eql('SIN_LOGIN');",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.not.be.empty;",
+              "  j.forEach((e) => pm.expect(e.squad).to.eql(\"MAD Irregulars\"));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events?select=id,squad"
+      }
+    },
+    {
+      "name": "TC-API14 Jugador FOE no ve partidas de MAD",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const emails = {\"superadmin\":\"qa.superadmin@example.com\",\"player_mad\":\"qa.player.mad@example.com\",\"player_foe\":\"qa.player.foe@example.com\",\"blocked\":\"qa.blocked@example.com\"};",
+              "pm.sendRequest({ url: pm.environment.get('base_url') + '/auth/v1/token?grant_type=password', method: 'POST',",
+              "  header: { apikey: pm.environment.get('anon_key'), 'Content-Type': 'application/json' },",
+              "  body: { mode: 'raw', raw: JSON.stringify({ email: emails['player_foe'], password: pm.environment.get('qa_password') }) } },",
+              "  (err, res) => { pm.variables.set('token', err || res.code !== 200 ? 'SIN_LOGIN' : res.json().access_token); });"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API14 Jugador FOE no ve partidas de MAD\"); return; }",
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API14 Jugador FOE no ve partidas de MAD\", () => {",
+              "  pm.expect(pm.variables.get('token'), 'login previo').to.not.eql('SIN_LOGIN');",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.not.be.empty;",
+              "  j.forEach((e) => pm.expect(e.squad).to.eql(\"FOE\"));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events?select=id,squad"
+      }
+    },
+    {
+      "name": "TC-API15 Bloqueado no ve ninguna partida",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const emails = {\"superadmin\":\"qa.superadmin@example.com\",\"player_mad\":\"qa.player.mad@example.com\",\"player_foe\":\"qa.player.foe@example.com\",\"blocked\":\"qa.blocked@example.com\"};",
+              "pm.sendRequest({ url: pm.environment.get('base_url') + '/auth/v1/token?grant_type=password', method: 'POST',",
+              "  header: { apikey: pm.environment.get('anon_key'), 'Content-Type': 'application/json' },",
+              "  body: { mode: 'raw', raw: JSON.stringify({ email: emails['blocked'], password: pm.environment.get('qa_password') }) } },",
+              "  (err, res) => { pm.variables.set('token', err || res.code !== 200 ? 'SIN_LOGIN' : res.json().access_token); });"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API15 Bloqueado no ve ninguna partida\"); return; }",
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API15 Bloqueado no ve ninguna partida\", () => {",
+              "  pm.expect(pm.variables.get('token'), 'login previo').to.not.eql('SIN_LOGIN');",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  pm.expect(j).to.be.an('array').that.is.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events?select=id"
+      }
+    },
+    {
+      "name": "TC-API16 Jugador MAD no crea partidas en FOE",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const emails = {\"superadmin\":\"qa.superadmin@example.com\",\"player_mad\":\"qa.player.mad@example.com\",\"player_foe\":\"qa.player.foe@example.com\",\"blocked\":\"qa.blocked@example.com\"};",
+              "pm.sendRequest({ url: pm.environment.get('base_url') + '/auth/v1/token?grant_type=password', method: 'POST',",
+              "  header: { apikey: pm.environment.get('anon_key'), 'Content-Type': 'application/json' },",
+              "  body: { mode: 'raw', raw: JSON.stringify({ email: emails['player_mad'], password: pm.environment.get('qa_password') }) } },",
+              "  (err, res) => { pm.variables.set('token', err || res.code !== 200 ? 'SIN_LOGIN' : res.json().access_token); });"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API16 Jugador MAD no crea partidas en FOE\"); return; }",
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API16 Jugador MAD no crea partidas en FOE\", () => {",
+              "  pm.expect(pm.variables.get('token'), 'login previo').to.not.eql('SIN_LOGIN');",
+              "  pm.expect([401,403]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\":\"QA intrusa\",\"squad\":\"FOE\",\"date\":\"2030-01-01\",\"hour\":\"10:00\",\"event_type\":\"normal\"}"
+        }
+      }
+    },
+    {
+      "name": "TC-API17 Super admin ve partidas de ambos equipos",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const emails = {\"superadmin\":\"qa.superadmin@example.com\",\"player_mad\":\"qa.player.mad@example.com\",\"player_foe\":\"qa.player.foe@example.com\",\"blocked\":\"qa.blocked@example.com\"};",
+              "pm.sendRequest({ url: pm.environment.get('base_url') + '/auth/v1/token?grant_type=password', method: 'POST',",
+              "  header: { apikey: pm.environment.get('anon_key'), 'Content-Type': 'application/json' },",
+              "  body: { mode: 'raw', raw: JSON.stringify({ email: emails['superadmin'], password: pm.environment.get('qa_password') }) } },",
+              "  (err, res) => { pm.variables.set('token', err || res.code !== 200 ? 'SIN_LOGIN' : res.json().access_token); });"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API17 Super admin ve partidas de ambos equipos\"); return; }",
+              "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+              "pm.test(\"TC-API17 Super admin ve partidas de ambos equipos\", () => {",
+              "  pm.expect(pm.variables.get('token'), 'login previo').to.not.eql('SIN_LOGIN');",
+              "  pm.expect([200]).to.include(pm.response.code);",
+              "  const s = new Set(j.map((e) => e.squad)); pm.expect(s.has('MAD Irregulars') && s.has('FOE')).to.be.true;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apikey",
+            "value": "{{anon_key}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{base_url}}/rest/v1/events?select=id,squad"
+      }
+    }
+  ]
+}
