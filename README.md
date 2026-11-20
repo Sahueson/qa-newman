@@ -1,13 +1,13 @@
 # qa-newman
 
 Pruebas de API con Postman/Newman contra el staging de Tactical Calendar (Supabase REST + Auth).
-17 casos (`TC-API01..17`): RLS para usuario anónimo, validación de apikey/login y visibilidad por
-rol (jugador MAD/FOE, bloqueado, super admin). Los 11 casos anónimos no necesitan credenciales; los
-6 con login se omiten si no hay `QA_PASSWORD`.
+57 casos (`TC-API01..58`) en 9 suites, una carpeta por suite (a-auth … i-normas, los mismos dominios que Playwright):
+RLS para usuario anónimo, validación de apikey y login, visibilidad por rol y escrituras que deben quedar bloqueadas.
+Sin `QA_PASSWORD` se ejecutan los casos anónimos y los que necesitan login salen "omitidos".
 
     npm ci
-    QA_PASSWORD=... ./run.sh        # escribe result.json en el formato común del lab
+    SUITE=a-auth,b-eventos QA_PASSWORD=... ./run.sh   # sin SUITE ejecuta las 9; escribe result.json (formato del lab)
 
-`environments/staging.postman_environment.json` solo lleva la URL pública del staging y su clave
-publicable (anon), la misma que viaja en el bundle del demo. Nada secreto.
+Los casos salen de `ivan-qa-lab-shared/api-cases/spec.js` (misma fuente para Newman, Bruno, Karate y JMeter).
+`environments/staging.postman_environment.json` solo lleva la URL pública del staging y su clave publicable (anon).
 En GitHub Actions: `.github/workflows/run-tests.yml` (inputs: run_id, suite, grep).

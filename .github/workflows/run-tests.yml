@@ -7,7 +7,7 @@ on:
         description: "ID del run en Supabase"
         required: true
       suite:
-        description: "Slug de la suite (api)"
+        description: "Suite(s): a-auth ... i-normas, separadas por comas"
         required: true
       grep:
         description: "Opcional: carpeta/test concreto"
