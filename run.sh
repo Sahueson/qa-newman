@@ -9,10 +9,12 @@ cd "$(dirname "$0")"
 ALL="a-auth,b-eventos,c-inscripciones,d-asistencia,e-gobernanza,f-excedencias,g-jugadores,h-calendario,i-normas"
 SUITE=$(printf %s "${SUITE:-$ALL}" | tr -cd 'a-z0-9,-')
 export SUITE
-rm -f newman-report.json result.json
+rm -rf newman-report.json result.json report
 run() {
   local args=(run collections/api.postman_collection.json -e environments/staging.postman_environment.json
-    -r cli,json --reporter-json-export newman-report.json --env-var "qa_password=${QA_PASSWORD:-}")
+    -r cli,json,htmlextra --reporter-json-export newman-report.json
+    --reporter-htmlextra-export report/index.html --reporter-htmlextra-title "Informe de Newman · API de Tactical Calendar" --reporter-htmlextra-skipSensitiveData
+    --env-var "qa_password=${QA_PASSWORD:-}")
   [ -n "${BASE_URL_API:-}" ] && args+=(--env-var "base_url=$BASE_URL_API")
   if [ -n "${GREP:-}" ]; then
     IFS='|' read -ra names <<< "$GREP"

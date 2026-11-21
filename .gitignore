@@ -2,3 +2,4 @@ node_modules
 newman-report.json
 result.json
 shared
+report
