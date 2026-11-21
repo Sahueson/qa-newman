@@ -52,7 +52,9 @@ jobs:
       - name: Informe HTML
         if: always()
         continue-on-error: true
-        run: node shared/make-report.js result.json report "Informe de Newman"
+        run: |
+          node shared/make-report.js result.json report "Informe de Newman"
+          node shared/mask-report.js report
 
       - name: Publicar informe (GitHub Pages)
         if: always() && hashFiles('report/index.html') != ''
