@@ -10,6 +10,13 @@ for (const ex of rep.run.executions) {
   if (!g) byName.set(ex.item.name, { ...ex, assertions: [...(ex.assertions || [])] });
   else { g.assertions.push(...(ex.assertions || [])); g.response = g.response || ex.response; }
 }
+const urlOf = (u) => (u && typeof u === "object")
+  ? (u.protocol || "https") + "://" + (u.host || []).join(".") + "/" + (u.path || []).join("/") + ((u.query || []).length ? "?" + u.query.map((q) => q.key + (q.value != null ? "=" + q.value : "")).join("&") : "")
+  : String(u || "");
+const evidenceOf = (ex) => ex.request ? {
+  request: { method: ex.request.method, url: urlOf(ex.request.url), headers: Object.fromEntries((ex.request.header || []).map((h) => [h.key, h.value])), body: ex.request.body ? ex.request.body.raw : null },
+  response: ex.response ? { status: ex.response.code, time_ms: ex.response.responseTime, body: Buffer.from((ex.response.stream && ex.response.stream.data) || []).toString("utf8") } : null,
+} : undefined;
 const tests = [...byName.values()].map((ex) => {
   const a = ex.assertions || [];
   const failed = a.find((x) => x.error);
@@ -22,6 +29,7 @@ const tests = [...byName.values()].map((ex) => {
     role: roles[id] || "Anónimo",
     error: failed ? failed.error.message : null,
     evidence_url: null,
+    evidence_data: evidenceOf(ex),
   };
 });
 const count = (s) => tests.filter((t) => t.status === s).length;
