@@ -1,7 +1,7 @@
 # qa-newman
 
 Pruebas de API con Postman/Newman contra el staging de Tactical Calendar (Supabase REST + Auth).
-57 casos (`TC-API01..58`) en 9 suites, una carpeta por suite (a-auth … i-normas, los mismos dominios que Playwright):
+57 casos (`TC-A01..58`) en 9 suites, una carpeta por suite (a-auth … i-normas, los mismos dominios que Playwright):
 RLS para usuario anónimo, validación de apikey y login, visibilidad por rol y escrituras que deben quedar bloqueadas.
 Sin `QA_PASSWORD` se ejecutan los casos anónimos y los que necesitan login salen "omitidos".
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Ejecuta suites de la colección de API contra el staging y escribe result.json (formato del lab).
-#   SUITE=a-auth[,b-eventos...]  GREP='TC-API01 Anónimo…|TC-API02 …' (opcional, nombres separados por |)  ./run.sh
+#   SUITE=a-auth[,b-eventos...]  GREP='TC-A01 Anónimo…|TC-A02 …' (opcional, nombres separados por |)  ./run.sh
 # SUITE se limpia a caracteres de slug; GREP se parte en nombres y cada uno va como argumento (nunca por el shell).
 # Con STG_SECRET_KEY reserva y resetea el staging; sin ella (local) solo lanza las pruebas.
 # Sin QA_PASSWORD los casos con login salen "omitidos".

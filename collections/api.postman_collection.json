@@ -8,7 +8,7 @@
       "name": "a-auth",
       "item": [
         {
-          "name": "TC-API10 Sin apikey se rechaza",
+          "name": "TC-A01 Sin apikey se rechaza",
           "event": [
             {
               "listen": "test",
@@ -17,7 +17,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API10 Sin apikey se rechaza\", () => {",
+                  "pm.test(\"TC-A01 Sin apikey se rechaza\", () => {",
                   "  pm.expect([401]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -36,7 +36,7 @@
           }
         },
         {
-          "name": "TC-API11 Login con contraseña incorrecta falla",
+          "name": "TC-A02 Login con contraseña incorrecta falla",
           "event": [
             {
               "listen": "test",
@@ -45,7 +45,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API11 Login con contraseña incorrecta falla\", () => {",
+                  "pm.test(\"TC-A02 Login con contraseña incorrecta falla\", () => {",
                   "  pm.expect([400]).to.include(pm.response.code);",
                   "  pm.expect(j.error_code).to.equal(\"invalid_credentials\");",
                   "});"
@@ -73,17 +73,17 @@
           }
         },
         {
-          "name": "TC-API12 Login correcto devuelve token",
+          "name": "TC-A03 Login correcto devuelve token",
           "event": [
             {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API12 Login correcto devuelve token\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-A03 Login correcto devuelve token\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API12 Login correcto devuelve token\", () => {",
+                  "pm.test(\"TC-A03 Login correcto devuelve token\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j.access_token).to.be.a('string').that.is.not.empty;",
                   "});"
@@ -111,7 +111,7 @@
           }
         },
         {
-          "name": "TC-API05 Anónimo no lee perfiles",
+          "name": "TC-A04 Anónimo no lee perfiles",
           "event": [
             {
               "listen": "test",
@@ -120,7 +120,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API05 Anónimo no lee perfiles\", () => {",
+                  "pm.test(\"TC-A04 Anónimo no lee perfiles\", () => {",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -143,7 +143,7 @@
           }
         },
         {
-          "name": "TC-API18 Jugador MAD lee su propio perfil",
+          "name": "TC-A05 Jugador MAD lee su propio perfil",
           "event": [
             {
               "listen": "prerequest",
@@ -170,10 +170,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API18 Jugador MAD lee su propio perfil\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-A05 Jugador MAD lee su propio perfil\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API18 Jugador MAD lee su propio perfil\", () => {",
+                  "pm.test(\"TC-A05 Jugador MAD lee su propio perfil\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(get(j, \"0.app_role\")).to.equal(\"player\");",
@@ -202,7 +202,7 @@
           }
         },
         {
-          "name": "TC-API19 Bloqueado lee su perfil y figura bloqueado",
+          "name": "TC-A06 Bloqueado lee su perfil y figura bloqueado",
           "event": [
             {
               "listen": "prerequest",
@@ -229,10 +229,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API19 Bloqueado lee su perfil y figura bloqueado\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-A06 Bloqueado lee su perfil y figura bloqueado\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API19 Bloqueado lee su perfil y figura bloqueado\", () => {",
+                  "pm.test(\"TC-A06 Bloqueado lee su perfil y figura bloqueado\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(get(j, \"0.is_blocked\")).to.equal(true);",
@@ -261,7 +261,7 @@
           }
         },
         {
-          "name": "TC-API20 Usuario sin equipo no ve partidas",
+          "name": "TC-A07 Usuario sin equipo no ve partidas",
           "event": [
             {
               "listen": "prerequest",
@@ -288,10 +288,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API20 Usuario sin equipo no ve partidas\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-A07 Usuario sin equipo no ve partidas\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API20 Usuario sin equipo no ve partidas\", () => {",
+                  "pm.test(\"TC-A07 Usuario sin equipo no ve partidas\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -320,7 +320,7 @@
           }
         },
         {
-          "name": "TC-API21 Un jugador no se asciende a super admin",
+          "name": "TC-A08 Un jugador no se asciende a super admin",
           "event": [
             {
               "listen": "prerequest",
@@ -347,10 +347,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API21 Un jugador no se asciende a super admin\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-A08 Un jugador no se asciende a super admin\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API21 Un jugador no se asciende a super admin\", () => {",
+                  "pm.test(\"TC-A08 Un jugador no se asciende a super admin\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect(pm.response.code >= 400 || (Array.isArray(j) && (j.length === 0 || (j[0].app_role === 'player' && !j[0].is_super_admin))), 'el jugador no debe poder ascenderse').to.equal(true);",
                   "});"
@@ -391,7 +391,7 @@
       "name": "b-eventos",
       "item": [
         {
-          "name": "TC-API01 Anónimo no ve partidas (RLS)",
+          "name": "TC-B01 Anónimo no ve partidas (RLS)",
           "event": [
             {
               "listen": "test",
@@ -400,7 +400,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API01 Anónimo no ve partidas (RLS)\", () => {",
+                  "pm.test(\"TC-B01 Anónimo no ve partidas (RLS)\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
                   "});"
@@ -424,7 +424,7 @@
           }
         },
         {
-          "name": "TC-API06 Anónimo no crea partidas",
+          "name": "TC-B02 Anónimo no crea partidas",
           "event": [
             {
               "listen": "test",
@@ -433,7 +433,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API06 Anónimo no crea partidas\", () => {",
+                  "pm.test(\"TC-B02 Anónimo no crea partidas\", () => {",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -460,7 +460,7 @@
           }
         },
         {
-          "name": "TC-API08 Anónimo no borra partidas",
+          "name": "TC-B03 Anónimo no borra partidas",
           "event": [
             {
               "listen": "test",
@@ -469,7 +469,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API08 Anónimo no borra partidas\", () => {",
+                  "pm.test(\"TC-B03 Anónimo no borra partidas\", () => {",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -492,7 +492,7 @@
           }
         },
         {
-          "name": "TC-API13 Jugador MAD solo ve partidas de su equipo",
+          "name": "TC-B04 Jugador MAD solo ve partidas de su equipo",
           "event": [
             {
               "listen": "prerequest",
@@ -519,10 +519,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API13 Jugador MAD solo ve partidas de su equipo\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-B04 Jugador MAD solo ve partidas de su equipo\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API13 Jugador MAD solo ve partidas de su equipo\", () => {",
+                  "pm.test(\"TC-B04 Jugador MAD solo ve partidas de su equipo\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.not.empty;",
@@ -552,7 +552,7 @@
           }
         },
         {
-          "name": "TC-API14 Jugador FOE no ve partidas de MAD",
+          "name": "TC-B05 Jugador FOE no ve partidas de MAD",
           "event": [
             {
               "listen": "prerequest",
@@ -579,10 +579,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API14 Jugador FOE no ve partidas de MAD\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-B05 Jugador FOE no ve partidas de MAD\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API14 Jugador FOE no ve partidas de MAD\", () => {",
+                  "pm.test(\"TC-B05 Jugador FOE no ve partidas de MAD\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.not.empty;",
@@ -612,7 +612,7 @@
           }
         },
         {
-          "name": "TC-API15 Bloqueado no ve ninguna partida",
+          "name": "TC-B06 Bloqueado no ve ninguna partida",
           "event": [
             {
               "listen": "prerequest",
@@ -639,10 +639,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API15 Bloqueado no ve ninguna partida\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-B06 Bloqueado no ve ninguna partida\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API15 Bloqueado no ve ninguna partida\", () => {",
+                  "pm.test(\"TC-B06 Bloqueado no ve ninguna partida\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -671,7 +671,7 @@
           }
         },
         {
-          "name": "TC-API16 Jugador MAD no crea partidas en FOE",
+          "name": "TC-B07 Jugador MAD no crea partidas en FOE",
           "event": [
             {
               "listen": "prerequest",
@@ -698,10 +698,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API16 Jugador MAD no crea partidas en FOE\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-B07 Jugador MAD no crea partidas en FOE\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API16 Jugador MAD no crea partidas en FOE\", () => {",
+                  "pm.test(\"TC-B07 Jugador MAD no crea partidas en FOE\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
@@ -733,7 +733,7 @@
           }
         },
         {
-          "name": "TC-API17 Super admin ve partidas de ambos equipos",
+          "name": "TC-B08 Super admin ve partidas de ambos equipos",
           "event": [
             {
               "listen": "prerequest",
@@ -760,10 +760,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API17 Super admin ve partidas de ambos equipos\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-B08 Super admin ve partidas de ambos equipos\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API17 Super admin ve partidas de ambos equipos\", () => {",
+                  "pm.test(\"TC-B08 Super admin ve partidas de ambos equipos\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect([\"MAD Irregulars\",\"FOE\"].every((s) => j.some((e) => e.squad === s)), 'faltan equipos en la respuesta').to.equal(true);",
@@ -792,7 +792,7 @@
           }
         },
         {
-          "name": "TC-API22 Jugador FOE no edita partidas",
+          "name": "TC-B09 Jugador FOE no edita partidas",
           "event": [
             {
               "listen": "prerequest",
@@ -819,10 +819,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API22 Jugador FOE no edita partidas\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-B09 Jugador FOE no edita partidas\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API22 Jugador FOE no edita partidas\", () => {",
+                  "pm.test(\"TC-B09 Jugador FOE no edita partidas\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -858,7 +858,7 @@
           }
         },
         {
-          "name": "TC-API23 Admin MAD no borra partidas de FOE",
+          "name": "TC-B10 Admin MAD no borra partidas de FOE",
           "event": [
             {
               "listen": "prerequest",
@@ -885,10 +885,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API23 Admin MAD no borra partidas de FOE\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-B10 Admin MAD no borra partidas de FOE\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API23 Admin MAD no borra partidas de FOE\", () => {",
+                  "pm.test(\"TC-B10 Admin MAD no borra partidas de FOE\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -925,7 +925,7 @@
       "name": "c-inscripciones",
       "item": [
         {
-          "name": "TC-API02 Anónimo no ve inscripciones (RLS)",
+          "name": "TC-C01 Anónimo no ve inscripciones (RLS)",
           "event": [
             {
               "listen": "test",
@@ -934,7 +934,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API02 Anónimo no ve inscripciones (RLS)\", () => {",
+                  "pm.test(\"TC-C01 Anónimo no ve inscripciones (RLS)\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
                   "});"
@@ -958,7 +958,7 @@
           }
         },
         {
-          "name": "TC-API24 Anónimo no se inscribe",
+          "name": "TC-C02 Anónimo no se inscribe",
           "event": [
             {
               "listen": "test",
@@ -967,7 +967,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API24 Anónimo no se inscribe\", () => {",
+                  "pm.test(\"TC-C02 Anónimo no se inscribe\", () => {",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -994,7 +994,7 @@
           }
         },
         {
-          "name": "TC-API25 Usuario sin equipo no ve inscripciones",
+          "name": "TC-C03 Usuario sin equipo no ve inscripciones",
           "event": [
             {
               "listen": "prerequest",
@@ -1021,10 +1021,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API25 Usuario sin equipo no ve inscripciones\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-C03 Usuario sin equipo no ve inscripciones\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API25 Usuario sin equipo no ve inscripciones\", () => {",
+                  "pm.test(\"TC-C03 Usuario sin equipo no ve inscripciones\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -1053,7 +1053,7 @@
           }
         },
         {
-          "name": "TC-API26 Bloqueado no ve inscripciones",
+          "name": "TC-C04 Bloqueado no ve inscripciones",
           "event": [
             {
               "listen": "prerequest",
@@ -1080,10 +1080,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API26 Bloqueado no ve inscripciones\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-C04 Bloqueado no ve inscripciones\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API26 Bloqueado no ve inscripciones\", () => {",
+                  "pm.test(\"TC-C04 Bloqueado no ve inscripciones\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -1112,7 +1112,7 @@
           }
         },
         {
-          "name": "TC-API27 Jugador MAD solo ve inscripciones de partidas de MAD",
+          "name": "TC-C05 Jugador MAD solo ve inscripciones de partidas de MAD",
           "event": [
             {
               "listen": "prerequest",
@@ -1139,10 +1139,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API27 Jugador MAD solo ve inscripciones de partidas de MAD\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-C05 Jugador MAD solo ve inscripciones de partidas de MAD\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API27 Jugador MAD solo ve inscripciones de partidas de MAD\", () => {",
+                  "pm.test(\"TC-C05 Jugador MAD solo ve inscripciones de partidas de MAD\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j.every((e) => get(e, \"events.squad\") === \"MAD Irregulars\"), 'todas las filas deben cumplir events.squad = MAD Irregulars').to.equal(true);",
@@ -1171,7 +1171,7 @@
           }
         },
         {
-          "name": "TC-API28 Jugador FOE no cancela inscripciones ajenas",
+          "name": "TC-C06 Jugador FOE no cancela inscripciones ajenas",
           "event": [
             {
               "listen": "prerequest",
@@ -1198,10 +1198,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API28 Jugador FOE no cancela inscripciones ajenas\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-C06 Jugador FOE no cancela inscripciones ajenas\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API28 Jugador FOE no cancela inscripciones ajenas\", () => {",
+                  "pm.test(\"TC-C06 Jugador FOE no cancela inscripciones ajenas\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -1238,7 +1238,7 @@
       "name": "d-asistencia",
       "item": [
         {
-          "name": "TC-API29 Anónimo no marca asistencia",
+          "name": "TC-D01 Anónimo no marca asistencia",
           "event": [
             {
               "listen": "test",
@@ -1247,7 +1247,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API29 Anónimo no marca asistencia\", () => {",
+                  "pm.test(\"TC-D01 Anónimo no marca asistencia\", () => {",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -1274,7 +1274,7 @@
           }
         },
         {
-          "name": "TC-API30 Jugador FOE no marca asistencia ajena",
+          "name": "TC-D02 Jugador FOE no marca asistencia ajena",
           "event": [
             {
               "listen": "prerequest",
@@ -1301,10 +1301,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API30 Jugador FOE no marca asistencia ajena\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-D02 Jugador FOE no marca asistencia ajena\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API30 Jugador FOE no marca asistencia ajena\", () => {",
+                  "pm.test(\"TC-D02 Jugador FOE no marca asistencia ajena\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -1340,7 +1340,7 @@
           }
         },
         {
-          "name": "TC-API31 Jugador MAD no marca asistencia ajena",
+          "name": "TC-D03 Jugador MAD no marca asistencia ajena",
           "event": [
             {
               "listen": "prerequest",
@@ -1367,10 +1367,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API31 Jugador MAD no marca asistencia ajena\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-D03 Jugador MAD no marca asistencia ajena\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API31 Jugador MAD no marca asistencia ajena\", () => {",
+                  "pm.test(\"TC-D03 Jugador MAD no marca asistencia ajena\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -1406,7 +1406,7 @@
           }
         },
         {
-          "name": "TC-API32 Super admin consulta la asistencia",
+          "name": "TC-D04 Super admin consulta la asistencia",
           "event": [
             {
               "listen": "prerequest",
@@ -1433,10 +1433,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API32 Super admin consulta la asistencia\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-D04 Super admin consulta la asistencia\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API32 Super admin consulta la asistencia\", () => {",
+                  "pm.test(\"TC-D04 Super admin consulta la asistencia\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array');",
@@ -1470,7 +1470,7 @@
       "name": "e-gobernanza",
       "item": [
         {
-          "name": "TC-API03 Anónimo no ve votaciones FOE (RLS)",
+          "name": "TC-E01 Anónimo no ve votaciones FOE (RLS)",
           "event": [
             {
               "listen": "test",
@@ -1479,7 +1479,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API03 Anónimo no ve votaciones FOE (RLS)\", () => {",
+                  "pm.test(\"TC-E01 Anónimo no ve votaciones FOE (RLS)\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
                   "});"
@@ -1503,7 +1503,7 @@
           }
         },
         {
-          "name": "TC-API04 Anónimo no ve faltas FOE (RLS)",
+          "name": "TC-E02 Anónimo no ve faltas FOE (RLS)",
           "event": [
             {
               "listen": "test",
@@ -1512,7 +1512,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API04 Anónimo no ve faltas FOE (RLS)\", () => {",
+                  "pm.test(\"TC-E02 Anónimo no ve faltas FOE (RLS)\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
                   "});"
@@ -1536,7 +1536,7 @@
           }
         },
         {
-          "name": "TC-API33 Jugador MAD no ve votaciones FOE",
+          "name": "TC-E03 Jugador MAD no ve votaciones FOE",
           "event": [
             {
               "listen": "prerequest",
@@ -1563,10 +1563,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API33 Jugador MAD no ve votaciones FOE\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-E03 Jugador MAD no ve votaciones FOE\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API33 Jugador MAD no ve votaciones FOE\", () => {",
+                  "pm.test(\"TC-E03 Jugador MAD no ve votaciones FOE\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -1595,7 +1595,7 @@
           }
         },
         {
-          "name": "TC-API34 Jugador FOE sin cargo no ve votaciones de la Junta",
+          "name": "TC-E04 Jugador FOE sin cargo no ve votaciones de la Junta",
           "event": [
             {
               "listen": "prerequest",
@@ -1622,10 +1622,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API34 Jugador FOE sin cargo no ve votaciones de la Junta\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-E04 Jugador FOE sin cargo no ve votaciones de la Junta\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API34 Jugador FOE sin cargo no ve votaciones de la Junta\", () => {",
+                  "pm.test(\"TC-E04 Jugador FOE sin cargo no ve votaciones de la Junta\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -1654,7 +1654,7 @@
           }
         },
         {
-          "name": "TC-API35 Admin FOE de la Junta ve las votaciones",
+          "name": "TC-E05 Admin FOE de la Junta ve las votaciones",
           "event": [
             {
               "listen": "prerequest",
@@ -1681,10 +1681,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API35 Admin FOE de la Junta ve las votaciones\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-E05 Admin FOE de la Junta ve las votaciones\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API35 Admin FOE de la Junta ve las votaciones\", () => {",
+                  "pm.test(\"TC-E05 Admin FOE de la Junta ve las votaciones\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.not.empty;",
@@ -1713,7 +1713,7 @@
           }
         },
         {
-          "name": "TC-API36 Jugador MAD no ve faltas FOE",
+          "name": "TC-E06 Jugador MAD no ve faltas FOE",
           "event": [
             {
               "listen": "prerequest",
@@ -1740,10 +1740,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API36 Jugador MAD no ve faltas FOE\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-E06 Jugador MAD no ve faltas FOE\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API36 Jugador MAD no ve faltas FOE\", () => {",
+                  "pm.test(\"TC-E06 Jugador MAD no ve faltas FOE\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -1772,7 +1772,7 @@
           }
         },
         {
-          "name": "TC-API37 Jugador FOE no crea votaciones",
+          "name": "TC-E07 Jugador FOE no crea votaciones",
           "event": [
             {
               "listen": "prerequest",
@@ -1799,10 +1799,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API37 Jugador FOE no crea votaciones\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-E07 Jugador FOE no crea votaciones\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API37 Jugador FOE no crea votaciones\", () => {",
+                  "pm.test(\"TC-E07 Jugador FOE no crea votaciones\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
@@ -1834,7 +1834,7 @@
           }
         },
         {
-          "name": "TC-API38 Jugador FOE no borra votaciones",
+          "name": "TC-E08 Jugador FOE no borra votaciones",
           "event": [
             {
               "listen": "prerequest",
@@ -1861,10 +1861,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API38 Jugador FOE no borra votaciones\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-E08 Jugador FOE no borra votaciones\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API38 Jugador FOE no borra votaciones\", () => {",
+                  "pm.test(\"TC-E08 Jugador FOE no borra votaciones\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -1901,7 +1901,7 @@
       "name": "f-excedencias",
       "item": [
         {
-          "name": "TC-API07 Anónimo no crea excedencias",
+          "name": "TC-F01 Anónimo no crea excedencias",
           "event": [
             {
               "listen": "test",
@@ -1910,7 +1910,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API07 Anónimo no crea excedencias\", () => {",
+                  "pm.test(\"TC-F01 Anónimo no crea excedencias\", () => {",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -1937,7 +1937,7 @@
           }
         },
         {
-          "name": "TC-API39 Anónimo no lee excedencias",
+          "name": "TC-F02 Anónimo no lee excedencias",
           "event": [
             {
               "listen": "test",
@@ -1946,7 +1946,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API39 Anónimo no lee excedencias\", () => {",
+                  "pm.test(\"TC-F02 Anónimo no lee excedencias\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
                   "});"
@@ -1970,7 +1970,7 @@
           }
         },
         {
-          "name": "TC-API40 Bloqueado no lee excedencias",
+          "name": "TC-F03 Bloqueado no lee excedencias",
           "event": [
             {
               "listen": "prerequest",
@@ -1997,10 +1997,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API40 Bloqueado no lee excedencias\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-F03 Bloqueado no lee excedencias\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API40 Bloqueado no lee excedencias\", () => {",
+                  "pm.test(\"TC-F03 Bloqueado no lee excedencias\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -2029,7 +2029,7 @@
           }
         },
         {
-          "name": "TC-API41 Jugador FOE consulta excedencias",
+          "name": "TC-F04 Jugador FOE consulta excedencias",
           "event": [
             {
               "listen": "prerequest",
@@ -2056,10 +2056,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API41 Jugador FOE consulta excedencias\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-F04 Jugador FOE consulta excedencias\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API41 Jugador FOE consulta excedencias\", () => {",
+                  "pm.test(\"TC-F04 Jugador FOE consulta excedencias\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array');",
@@ -2088,7 +2088,7 @@
           }
         },
         {
-          "name": "TC-API42 Jugador FOE no aprueba excedencias ajenas",
+          "name": "TC-F05 Jugador FOE no aprueba excedencias ajenas",
           "event": [
             {
               "listen": "prerequest",
@@ -2115,10 +2115,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API42 Jugador FOE no aprueba excedencias ajenas\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-F05 Jugador FOE no aprueba excedencias ajenas\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API42 Jugador FOE no aprueba excedencias ajenas\", () => {",
+                  "pm.test(\"TC-F05 Jugador FOE no aprueba excedencias ajenas\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -2159,7 +2159,7 @@
       "name": "g-jugadores",
       "item": [
         {
-          "name": "TC-API43 Super admin ve perfiles de ambos equipos",
+          "name": "TC-G01 Super admin ve perfiles de ambos equipos",
           "event": [
             {
               "listen": "prerequest",
@@ -2186,10 +2186,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API43 Super admin ve perfiles de ambos equipos\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-G01 Super admin ve perfiles de ambos equipos\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API43 Super admin ve perfiles de ambos equipos\", () => {",
+                  "pm.test(\"TC-G01 Super admin ve perfiles de ambos equipos\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect([\"MAD Irregulars\",\"FOE\"].every((s) => j.some((e) => e.squad === s)), 'faltan equipos en la respuesta').to.equal(true);",
@@ -2218,7 +2218,7 @@
           }
         },
         {
-          "name": "TC-API44 Jugador MAD solo ve perfiles de su unidad",
+          "name": "TC-G02 Jugador MAD solo ve perfiles de su unidad",
           "event": [
             {
               "listen": "prerequest",
@@ -2245,10 +2245,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API44 Jugador MAD solo ve perfiles de su unidad\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-G02 Jugador MAD solo ve perfiles de su unidad\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API44 Jugador MAD solo ve perfiles de su unidad\", () => {",
+                  "pm.test(\"TC-G02 Jugador MAD solo ve perfiles de su unidad\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.not.empty;",
@@ -2278,7 +2278,7 @@
           }
         },
         {
-          "name": "TC-API45 Jugador FOE no ve perfiles de MAD",
+          "name": "TC-G03 Jugador FOE no ve perfiles de MAD",
           "event": [
             {
               "listen": "prerequest",
@@ -2305,10 +2305,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API45 Jugador FOE no ve perfiles de MAD\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-G03 Jugador FOE no ve perfiles de MAD\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API45 Jugador FOE no ve perfiles de MAD\", () => {",
+                  "pm.test(\"TC-G03 Jugador FOE no ve perfiles de MAD\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
@@ -2337,7 +2337,7 @@
           }
         },
         {
-          "name": "TC-API46 Jugador MAD no cambia el rol de otros",
+          "name": "TC-G04 Jugador MAD no cambia el rol de otros",
           "event": [
             {
               "listen": "prerequest",
@@ -2364,10 +2364,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API46 Jugador MAD no cambia el rol de otros\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-G04 Jugador MAD no cambia el rol de otros\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API46 Jugador MAD no cambia el rol de otros\", () => {",
+                  "pm.test(\"TC-G04 Jugador MAD no cambia el rol de otros\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -2403,7 +2403,7 @@
           }
         },
         {
-          "name": "TC-API47 Jugador MAD no bloquea a otros",
+          "name": "TC-G05 Jugador MAD no bloquea a otros",
           "event": [
             {
               "listen": "prerequest",
@@ -2430,10 +2430,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API47 Jugador MAD no bloquea a otros\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-G05 Jugador MAD no bloquea a otros\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API47 Jugador MAD no bloquea a otros\", () => {",
+                  "pm.test(\"TC-G05 Jugador MAD no bloquea a otros\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -2474,7 +2474,7 @@
       "name": "h-calendario",
       "item": [
         {
-          "name": "TC-API48 Anónimo no ve fechas sin partida",
+          "name": "TC-H01 Anónimo no ve fechas sin partida",
           "event": [
             {
               "listen": "test",
@@ -2483,7 +2483,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API48 Anónimo no ve fechas sin partida\", () => {",
+                  "pm.test(\"TC-H01 Anónimo no ve fechas sin partida\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
                   "});"
@@ -2507,7 +2507,7 @@
           }
         },
         {
-          "name": "TC-API49 Anónimo no crea fechas sin partida",
+          "name": "TC-H02 Anónimo no crea fechas sin partida",
           "event": [
             {
               "listen": "test",
@@ -2516,7 +2516,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API49 Anónimo no crea fechas sin partida\", () => {",
+                  "pm.test(\"TC-H02 Anónimo no crea fechas sin partida\", () => {",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -2543,7 +2543,7 @@
           }
         },
         {
-          "name": "TC-API50 Jugador MAD consulta fechas sin partida",
+          "name": "TC-H03 Jugador MAD consulta fechas sin partida",
           "event": [
             {
               "listen": "prerequest",
@@ -2570,10 +2570,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API50 Jugador MAD consulta fechas sin partida\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-H03 Jugador MAD consulta fechas sin partida\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API50 Jugador MAD consulta fechas sin partida\", () => {",
+                  "pm.test(\"TC-H03 Jugador MAD consulta fechas sin partida\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array');",
@@ -2602,7 +2602,7 @@
           }
         },
         {
-          "name": "TC-API51 Jugador MAD no crea fechas sin partida",
+          "name": "TC-H04 Jugador MAD no crea fechas sin partida",
           "event": [
             {
               "listen": "prerequest",
@@ -2629,10 +2629,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API51 Jugador MAD no crea fechas sin partida\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-H04 Jugador MAD no crea fechas sin partida\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API51 Jugador MAD no crea fechas sin partida\", () => {",
+                  "pm.test(\"TC-H04 Jugador MAD no crea fechas sin partida\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
@@ -2664,7 +2664,7 @@
           }
         },
         {
-          "name": "TC-API52 Jugador MAD no borra fechas sin partida",
+          "name": "TC-H05 Jugador MAD no borra fechas sin partida",
           "event": [
             {
               "listen": "prerequest",
@@ -2691,10 +2691,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API52 Jugador MAD no borra fechas sin partida\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-H05 Jugador MAD no borra fechas sin partida\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API52 Jugador MAD no borra fechas sin partida\", () => {",
+                  "pm.test(\"TC-H05 Jugador MAD no borra fechas sin partida\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -2731,7 +2731,7 @@
       "name": "i-normas",
       "item": [
         {
-          "name": "TC-API53 Anónimo no lee documentos del equipo",
+          "name": "TC-I01 Anónimo no lee documentos del equipo",
           "event": [
             {
               "listen": "test",
@@ -2740,7 +2740,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API53 Anónimo no lee documentos del equipo\", () => {",
+                  "pm.test(\"TC-I01 Anónimo no lee documentos del equipo\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.empty;",
                   "});"
@@ -2764,7 +2764,7 @@
           }
         },
         {
-          "name": "TC-API54 Jugador MAD consulta los documentos de su equipo",
+          "name": "TC-I02 Jugador MAD consulta los documentos de su equipo",
           "event": [
             {
               "listen": "prerequest",
@@ -2791,10 +2791,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API54 Jugador MAD consulta los documentos de su equipo\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-I02 Jugador MAD consulta los documentos de su equipo\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API54 Jugador MAD consulta los documentos de su equipo\", () => {",
+                  "pm.test(\"TC-I02 Jugador MAD consulta los documentos de su equipo\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array');",
@@ -2823,7 +2823,7 @@
           }
         },
         {
-          "name": "TC-API55 Jugador MAD no sube documentos",
+          "name": "TC-I03 Jugador MAD no sube documentos",
           "event": [
             {
               "listen": "prerequest",
@@ -2850,10 +2850,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API55 Jugador MAD no sube documentos\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-I03 Jugador MAD no sube documentos\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API55 Jugador MAD no sube documentos\", () => {",
+                  "pm.test(\"TC-I03 Jugador MAD no sube documentos\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401,403]).to.include(pm.response.code);",
                   "});"
@@ -2885,7 +2885,7 @@
           }
         },
         {
-          "name": "TC-API56 Jugador MAD no borra documentos",
+          "name": "TC-I04 Jugador MAD no borra documentos",
           "event": [
             {
               "listen": "prerequest",
@@ -2912,10 +2912,10 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-API56 Jugador MAD no borra documentos\"); return; }",
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-I04 Jugador MAD no borra documentos\"); return; }",
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API56 Jugador MAD no borra documentos\", () => {",
+                  "pm.test(\"TC-I04 Jugador MAD no borra documentos\", () => {",
                   "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
                   "  pm.expect([401, 403].includes(pm.response.code) || ([200, 204].includes(pm.response.code) && (!j || (Array.isArray(j) && j.length === 0))), 'la operación debería estar bloqueada o no afectar a ninguna fila').to.equal(true);",
                   "});"
@@ -2947,7 +2947,7 @@
           }
         },
         {
-          "name": "TC-API57 El bucket de normas es privado",
+          "name": "TC-I05 El bucket de normas es privado",
           "event": [
             {
               "listen": "test",
@@ -2956,7 +2956,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API57 El bucket de normas es privado\", () => {",
+                  "pm.test(\"TC-I05 El bucket de normas es privado\", () => {",
                   "  pm.expect([400,404]).to.include(pm.response.code);",
                   "});"
                 ]
@@ -2979,7 +2979,7 @@
           }
         },
         {
-          "name": "TC-API58 El ping keep_alive responde",
+          "name": "TC-I06 El ping keep_alive responde",
           "event": [
             {
               "listen": "test",
@@ -2988,7 +2988,7 @@
                 "exec": [
                   "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
                   "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
-                  "pm.test(\"TC-API58 El ping keep_alive responde\", () => {",
+                  "pm.test(\"TC-I06 El ping keep_alive responde\", () => {",
                   "  pm.expect([200]).to.include(pm.response.code);",
                   "  pm.expect(j).to.be.an('array').that.is.not.empty;",
                   "});"
