@@ -3012,6 +3012,138 @@
           }
         }
       ]
+    },
+    {
+      "name": "j-demo-fallos",
+      "item": [
+        {
+          "name": "TC-J01 Un anónimo ve la lista de partidas (requisito inexistente)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
+                  "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+                  "pm.test(\"TC-J01 Un anónimo ve la lista de partidas (requisito inexistente)\", () => {",
+                  "  pm.expect([200]).to.include(pm.response.code);",
+                  "  pm.expect(j).to.be.an('array').that.is.not.empty;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "apikey",
+                "value": "{{anon_key}}"
+              }
+            ],
+            "url": "{{base_url}}/rest/v1/events?select=id"
+          }
+        },
+        {
+          "name": "TC-J02 El jugador MAD crea una partida en FOE (requisito inexistente)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const user = 'player_mad';",
+                  "const cached = pm.collectionVariables.get('tok_' + user);",
+                  "if (cached) { pm.variables.set('token', cached); pm.variables.set('uid', pm.collectionVariables.get('uid_' + user)); }",
+                  "else if (pm.environment.get('qa_password')) {",
+                  "  const emails = {\"superadmin\":\"qa.superadmin@example.com\",\"admin_mad\":\"qa.admin.mad@example.com\",\"admin_foe\":\"qa.admin.foe@example.com\",\"junta2\":\"qa.junta2@example.com\",\"player_foe\":\"qa.player.foe@example.com\",\"player_mad\":\"qa.player.mad@example.com\",\"blocked\":\"qa.blocked@example.com\",\"sinequipo\":\"qa.sinequipo@example.com\"};",
+                  "  pm.sendRequest({ url: pm.environment.get('base_url') + '/auth/v1/token?grant_type=password', method: 'POST',",
+                  "    header: { apikey: pm.environment.get('anon_key'), 'Content-Type': 'application/json' },",
+                  "    body: { mode: 'raw', raw: JSON.stringify({ email: emails[user], password: pm.environment.get('qa_password') }) } },",
+                  "    (err, res) => { const ok = !err && res.code === 200; const tk = ok ? res.json().access_token : 'SIN_LOGIN'; const id = ok ? res.json().user.id : '';",
+                  "      pm.variables.set('token', tk); pm.variables.set('uid', id);",
+                  "      if (ok) { pm.collectionVariables.set('tok_' + user, tk); pm.collectionVariables.set('uid_' + user, id); } });",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!pm.environment.get('qa_password')) { pm.test.skip(\"TC-J02 El jugador MAD crea una partida en FOE (requisito inexistente)\"); return; }",
+                  "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
+                  "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+                  "pm.test(\"TC-J02 El jugador MAD crea una partida en FOE (requisito inexistente)\", () => {",
+                  "  pm.expect(pm.variables.get('token'), 'login previo').to.not.equal('SIN_LOGIN');",
+                  "  pm.expect([201]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "apikey",
+                "value": "{{anon_key}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": "{{base_url}}/rest/v1/events",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"QA demo\",\"squad\":\"FOE\",\"date\":\"2030-01-01\",\"hour\":\"10:00\",\"field\":\"x\",\"event_type\":\"normal\"}"
+            }
+          }
+        },
+        {
+          "name": "TC-J03 El endpoint de estadísticas de partidas responde 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);",
+                  "const j = (() => { try { return pm.response.json(); } catch (e) { return null; } })();",
+                  "pm.test(\"TC-J03 El endpoint de estadísticas de partidas responde 200\", () => {",
+                  "  pm.expect([200]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "apikey",
+                "value": "{{anon_key}}"
+              }
+            ],
+            "url": "{{base_url}}/rest/v1/event_stats?select=id"
+          }
+        }
+      ]
     }
   ]
 }
