@@ -11,6 +11,8 @@ SUITE=$(printf %s "${SUITE:-$ALL}" | tr -cd 'a-z0-9,-')
 export SUITE
 rm -rf newman-report.json result.json report
 run() {
+  # Pantalla en vivo de la web: convierte la salida en eventos (solo si existe shared/live-tail.js).
+  local TAIL=(); [ -f shared/live-tail.js ] && TAIL=(node shared/live-tail.js newman --)
   local args=(run collections/api.postman_collection.json -e environments/staging.postman_environment.json
     -r cli,json,htmlextra --reporter-json-export newman-report.json
     --reporter-htmlextra-export report/index.html --reporter-htmlextra-title "Informe de Newman · API de Tactical Calendar" --reporter-htmlextra-skipSensitiveData
@@ -23,7 +25,7 @@ run() {
     IFS=',' read -ra list <<< "$SUITE"
     for s in "${list[@]}"; do [ -n "$s" ] && args+=(--folder "$s"); done
   fi
-  npx newman "${args[@]}" || true
+  "${TAIL[@]}" npx newman "${args[@]}" || true
   node to-result.js newman-report.json result.json
 }
 if [ -n "${STG_SECRET_KEY:-}" ] && [ -f shared/reset-staging/with-staging.js ]; then
